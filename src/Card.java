@@ -2,7 +2,7 @@ public class Card {
 
     // Card values.
     private final String cardSet, cardColor, cardValue;
-    // Next and previous cards.
+    // Next and previous card positions.
     private Card nextCard, previousCard;
 
     // Card constructor.
@@ -30,10 +30,6 @@ public class Card {
         return previousCard;
     }
 
-    public void getCard() {
-        System.out.println("{" + cardSet + "},{" + cardColor + "},{" + cardValue + "}");
-    }
-
     public String getCardSet() {
         return cardSet;
     }
@@ -45,4 +41,10 @@ public class Card {
     public String getCardValue() {
         return cardValue;
     }
+
+    // Prints the values of the card.
+    public void getCard() {
+        System.out.println("{" + cardSet + "},{" + cardColor + "},{" + cardValue + "}");
+    }
+
 }
