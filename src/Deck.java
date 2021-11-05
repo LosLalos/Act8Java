@@ -57,8 +57,9 @@ public class Deck {
     /**
      * Gets the first card of the card deck.
      * @return The first card of the deck.
+     * @exception NullPointerException Deck has 0 cards left.
      */
-    public Card getDeckHead() {
+    public Card getDeckHead() throws NullPointerException {
         // Current first card is saved into this variable.
         Card cardPicker = firstCard;
 
@@ -85,8 +86,9 @@ public class Deck {
     /**
      * Gets the last card of the card deck.
      * @return The last card of the deck.
+     * @exception NullPointerException Deck has 0 cards left.
      */
-    public Card getDeckTail() {
+    public Card getDeckTail() throws NullPointerException {
         // Current last card is saved into this variable.
         Card cardPicker = lastCard;
 
@@ -113,8 +115,9 @@ public class Deck {
     /**
      * Picks a random card from the deck.
      * @return The randomly chosen card.
+     * @exception IllegalArgumentException Deck has 0 cards left.
      */
-    public Card pickACard() {
+    public Card pickACard() throws IllegalArgumentException {
         // Deck card that is going to get picked.
         int random = ThreadLocalRandom.current().nextInt(1, deckLength + 1);
 
@@ -152,8 +155,16 @@ public class Deck {
 
     /**
      * Randomly shuffles the entire deck of cards.
+     * @exception Exception Deck has 0 cards left.
      */
-    public void shuffle() {
+    public void shuffle() throws Exception {
+        // No more card to shuffle.
+        if (deckLength == 0) {
+            throw new Exception();
+        }
+        // Deck can be shuffled.
+        System.out.println("The deck was shuffled successfully!");
+
         //"cardPicker" accesses the deck.
         //"newFirstCard" will be the new firstCard of the deck.
         //"newLastCard" will be the new lastCard of the deck.
@@ -196,47 +207,15 @@ public class Deck {
      * Gets and shows 5 cards from the top of the card deck.
      */
     public void getAHand() {
-        // Deck has 5 cards or more.
-        if (deckLength >= 5) {
-            for (int clock = 0; clock < 5; clock++) {
-                showCard(getDeckHead());
-            }
-        }
-        // Deck has less than 5 cards.
-        else {
-            System.out.println("The deck has less than 5 cards. We cannot give you a hand of cards.");
-        }
-    }
-
-    /**
-     * Shows the entire deck of cards.
-     */
-    public void showDeck() {
-        // Deck is accessed.
-        Card cardPointer = firstCard;
-
-        // Cycles throughout all the cards.
-        for (int clock = 0; clock < deckLength; clock++) {
-            // Shows the card's values.
-            showCard(cardPointer);
-            // Moves to the next card position.
-            cardPointer = cardPointer.getNextCard();
+        for (int clock = 0; clock < 5; clock++) {
+            showCard(getDeckHead());
         }
     }
 
     /**
      * Prints the remaining number of cards left in the deck.
      */
-    public int getRemainingCards() {
+    public void getRemainingCards() {
         System.out.println("\nThe deck has " + deckLength + " cards left.");
-        return deckLength;
-    }
-
-    /**
-     * Returns the remaining number of cards left in the deck.
-     * @return number of cards left.
-     */
-    public int getDeckLength() {
-        return deckLength;
     }
 }
